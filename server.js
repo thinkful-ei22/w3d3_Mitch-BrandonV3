@@ -1,4 +1,4 @@
-
+'use strict';
 const express = require('express');
 const router = express.Router();
 const morgan = require('morgan');
@@ -53,6 +53,11 @@ app.delete('/shopping-list/:id', (req, res) => {
   res.status(204).end();
 });
 
+app.delete('/recipes/:id', (req, res) => {
+  console.log(req.params.id);
+  Recipes.delete(req.params.id);
+  res.status(204).end();
+});
 
 // when new recipe added, ensure has required fields. if not,
 // log error and return 400 status code with hepful message.
@@ -75,7 +80,7 @@ app.post('/recipes', jsonParser, (req, res) => {
 
 app.get('/recipes', (req, res) => {
   res.json(Recipes.get());
-})
+});
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
